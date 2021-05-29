@@ -1,5 +1,5 @@
-import { useField } from "formik";
 import React from "react";
+import { ErrorMessage, useField } from "formik";
 
 export default function TextField({ label, ...props }) {
 	const [field, meta] = useField(props);
@@ -10,11 +10,18 @@ export default function TextField({ label, ...props }) {
 			<input
 				id={props.name}
 				name={props.name}
-				className="form-control"
+				className={`form-control ${
+					meta.touched && meta.error ? "is-invalid" : "is-valid"
+				}`}
 				autoComplete="off"
 				type="text"
 				{...props}
 				{...field}
+			/>
+			<ErrorMessage
+				name={field.name}
+				component="div"
+				className="invalid-feedback"
 			/>
 		</div>
 	);

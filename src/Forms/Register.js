@@ -1,17 +1,47 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import TextField from "../Components/TextField";
+import * as Yup from "yup";
 
 export default function RegisterFrom() {
+	const validate = Yup.object({
+		firstName: Yup.string()
+			.min(3, "Minimum of 3 characters")
+			.max(15, "Maximum of 15 characters")
+			.required("Required"),
+		lastName: Yup.string()
+			.min(3, "Minimum of 3 characters")
+			.max(15, "Maximum of 15 characters")
+			.required("Required"),
+		userName: Yup.string()
+			.min(5, "Minimum of 3 characters")
+			.max(15, "Maximum of 15 characters")
+			.required("Required"),
+		email: Yup.string()
+			.email()
+			.min(3, "Minimum of 3 characters")
+			.max(15, "Maximum of 15 characters")
+			.required("Required"),
+		password: Yup.string()
+			.min(8, "Minimum of 3 characters")
+			.max(15, "Maximum of 15 characters")
+			.required("Required"),
+		confirmPassword: Yup.string()
+			.oneOf([Yup.ref("password")], "Passwords must match")
+			.required("Password is required"),
+	});
+
 	return (
 		<Formik
 			initialValues={{
 				firstName: "",
-				lasttName: "",
-				username: "",
+				lastName: "",
+				userName: "",
 				email: "",
 				password: "",
+				confirmPassword: "",
 			}}
+			validationSchema={validate}
 		>
 			{(formik) => (
 				<Form>
@@ -27,7 +57,12 @@ export default function RegisterFrom() {
 					<TextField label="Email" name="email" type="email" />
 					<TextField
 						label="Password"
-						name="p assword"
+						name="password"
+						type="password"
+					/>
+					<TextField
+						label="Confirm password"
+						name="confirmPassword"
 						type="password"
 					/>
 					<div className="mt-5">
