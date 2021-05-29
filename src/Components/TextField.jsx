@@ -11,7 +11,7 @@ export default function TextField({ label, ...props }) {
 				id={props.name}
 				name={props.name}
 				className={`form-control ${
-					meta.touched && meta.error ? "is-invalid" : "is-valid"
+					meta.touched && (meta.error ? "is-invalid" : "is-valid")
 				}`}
 				autoComplete="off"
 				type="text"
