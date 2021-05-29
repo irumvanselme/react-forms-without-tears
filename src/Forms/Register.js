@@ -31,6 +31,10 @@ export default function RegisterFrom() {
 			.required("Password is required"),
 	});
 
+	const subMitForm = (values) => {
+		console.log(values);
+	};
+
 	return (
 		<Formik
 			initialValues={{
@@ -41,12 +45,12 @@ export default function RegisterFrom() {
 				password: "",
 				confirmPassword: "",
 			}}
+			onSubmit={subMitForm}
 			validationSchema={validate}
 		>
 			{(formik) => (
 				<Form>
 					<h1 className="font-weight-bolder mb-5">Sign up form</h1>
-					{console.log(formik.values)}
 					<TextField
 						label="First Name"
 						name="firstName"
